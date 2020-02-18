@@ -1,26 +1,35 @@
 import 'package:elezz/data/bloc.dart';
 import 'package:elezz/pages/home.dart';
 import 'package:elezz/pages/register.dart';
+import 'package:elezz/utils/app_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _LoginState();
+  }
+}
+
+class _LoginState extends State<Login> {
   final _email = TextEditingController();
   final _password = TextEditingController();
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  Color _mainColor = Color(0xffbca05d);
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final Color _mainColor = Color(0xffbca05d);
+  bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(
               height: 20.0,
             ),
             Container(
-              alignment: Alignment.topLeft,
               child: IconButton(
                 icon: Icon(Icons.arrow_back),
                 onPressed: () {
@@ -29,7 +38,7 @@ class Login extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 60.0,
+              height: 40.0,
             ),
             Container(
               height: 100.0,
@@ -41,6 +50,9 @@ class Login extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(
+              height: 20.0,
+            ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 20.0),
               child: Form(
@@ -48,7 +60,7 @@ class Login extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     Text(
-                      'Login',
+                      DemoLocalization.of(context).word['login'],
                       style: TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
@@ -67,7 +79,7 @@ class Login extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'Email',
+                            DemoLocalization.of(context).word['email'],
                             style: _titleStle(),
                           ),
                           TextFormField(
@@ -106,7 +118,7 @@ class Login extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'password',
+                            DemoLocalization.of(context).word['password'],
                             style: _titleStle(),
                           ),
                           TextFormField(
@@ -136,15 +148,24 @@ class Login extends StatelessWidget {
                       onTap: () async {
                         _formKey.currentState.save();
                         if (_formKey.currentState.validate()) {
+                          setState(() {
+                            _loading = true;
+                          });
                           var re =
                               await bloc.login(_email.text, _password.text);
                           if (re['status']) {
+                            setState(() {
+                            _loading = false;
+                          });
                             bloc.getFavorite();
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => Home()));
                           } else {
+                            setState(() {
+                            _loading = false;
+                          });
                             showDialog(
                               context: context,
                               child: AlertDialog(
@@ -163,27 +184,29 @@ class Login extends StatelessWidget {
                             color: _mainColor),
                         height: 60.0,
                         margin: EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Text(
-                          'Login',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: Colors.white),
-                        ),
+                        child: _loading
+                            ? CircularProgressIndicator(backgroundColor: _mainColor,)
+                            : Text(
+                                DemoLocalization.of(context).word['login'],
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    color: Colors.white),
+                              ),
                       ),
                     ),
                     SizedBox(
                       height: 15.0,
                     ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: InkWell(
-                        child: Text(
-                          'forget your password?',
-                          style: TextStyle(color: _mainColor),
-                        ),
-                      ),
-                    ),
+                    // Container(
+                    //   alignment: Alignment.center,
+                    //   child: InkWell(
+                    //     child: Text(
+                    //       'forget your password?',
+                    //       style: TextStyle(color: _mainColor),
+                    //     ),
+                    //   ),
+                    // ),
                     InkWell(
                       onTap: () {
                         Navigator.push(
@@ -200,11 +223,11 @@ class Login extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              'Don`t have an account ',
+                              DemoLocalization.of(context).word['no_account'],
                               style: TextStyle(color: Colors.black45),
                             ),
                             Text(
-                              'Register Now',
+                              DemoLocalization.of(context).word['register_now'],
                               style: TextStyle(color: _mainColor),
                             ),
                           ],

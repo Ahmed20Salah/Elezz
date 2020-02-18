@@ -95,7 +95,7 @@ class Favorite extends StatelessWidget {
               width: 15.0,
             ),
             Container(
-              height: 110.0,
+              height: 130.0,
               width: MediaQuery.of(context).size.width - 200.0,
               margin: EdgeInsets.only(left: 10.0),
               child: Column(

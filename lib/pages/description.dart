@@ -1,6 +1,7 @@
 import 'package:elezz/data/bloc.dart';
 import 'package:elezz/model/item.dart';
 import 'package:elezz/pages/requset.dart';
+import 'package:elezz/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 
 class Description extends StatefulWidget {
@@ -32,6 +33,7 @@ class _Description extends State<Description> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _projectPic(context),
             __slider(),
@@ -101,10 +103,10 @@ class _Description extends State<Description> {
                 SizedBox(
                   width: 10.0,
                 ),
-                Icon(
-                  Icons.share,
-                  color: Colors.white,
-                )
+                // Icon(
+                //   Icons.share,
+                //   color: Colors.white,
+                // )
               ],
             ),
           )
@@ -148,7 +150,7 @@ class _Description extends State<Description> {
   // title & loaction
   Widget _title() {
     return Container(
-      height: 60.0,
+      height: 70.0,
       margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -170,7 +172,6 @@ class _Description extends State<Description> {
                   ),
                 ),
                 Container(
-                  height: 30.0,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
@@ -200,7 +201,7 @@ class _Description extends State<Description> {
               ),
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
               child: Text(
-                'view on map',
+                DemoLocalization.of(context).word['map'],
                 style: TextStyle(
                   color: _fontColor,
                 ),
@@ -249,14 +250,14 @@ class _Description extends State<Description> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        '${widget._item.price.toString()}EGP',
+                        '${widget._item.price.toString()}${DemoLocalization.of(context).word['currency']}',
                         style: TextStyle(
                             color: _mainColor,
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        '/year',
+                       DemoLocalization.of(context).word['year'],
                         style: TextStyle(
                           color: _fontColor,
                         ),
@@ -306,11 +307,9 @@ class _Description extends State<Description> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Icon(
-                        Icons.business,
-                        size: 25,
-                        color: _iconColor,
-                      ),
+                     Container(
+child: Icon(Icons.location_city , color: _titleColor,),
+                     ),
                       SizedBox(
                         width: 7.0,
                       ),
@@ -336,16 +335,17 @@ class _Description extends State<Description> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Icon(
-                        Icons.business,
-                        size: 25,
-                        color: _iconColor,
+                      Container(
+                        height: 30.0,
+                        width:30.0,
+                        child:
+                            Image.asset('assets/4.png', fit: BoxFit.cover),
                       ),
                       SizedBox(
                         width: 7.0,
                       ),
                       Text(
-                        '${widget._item.bedroom} Bedrooms',
+                        '${widget._item.bedroom} ${DemoLocalization.of(context).word['bedroom']}',
                         overflow: TextOverflow.fade,
                         style: TextStyle(
                           fontSize: 18.0,
@@ -377,16 +377,17 @@ class _Description extends State<Description> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Icon(
-                        Icons.room_service,
-                        size: 25,
-                        color: _iconColor,
+                      Container(
+                        height: 30.0,
+                        width: 30.0,
+                        child:
+                            Image.asset('assets/2.png', fit: BoxFit.cover),
                       ),
                       SizedBox(
                         width: 7.0,
                       ),
                       Text(
-                        '${widget._item.size} sqft',
+                        '${widget._item.kitchens}  ${DemoLocalization.of(context).word['kitchen']}',
                         style: TextStyle(
                           fontSize: 18.0,
                           color: _fontColor,
@@ -417,7 +418,7 @@ class _Description extends State<Description> {
                         width: 7.0,
                       ),
                       Text(
-                        '${widget._item.bedroom} Bedrooms',
+                        '${widget._item.bethroom}  ${DemoLocalization.of(context).word['bathroom']}',
                         style: TextStyle(
                           fontSize: 18.0,
                           color: _fontColor,
@@ -448,16 +449,17 @@ class _Description extends State<Description> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Icon(
-                        Icons.directions_car,
-                        size: 25,
-                        color: _iconColor,
+                      Container(
+                        height: 30.0,
+                        width: 30.0,
+                        child:
+                            Image.asset('assets/3.png', fit: BoxFit.cover),
                       ),
                       SizedBox(
                         width: 7.0,
                       ),
                       Text(
-                        '${widget._item.garage} Garages',
+                        '${widget._item.garage}  ${DemoLocalization.of(context).word['garage']}',
                         style: TextStyle(
                           fontSize: 18.0,
                           color: _fontColor,
@@ -479,8 +481,8 @@ class _Description extends State<Description> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                        height: 20.0,
-                        width: 20.0,
+                        height: 25.0,
+                        width: 25.0,
                         child: Image.asset('assets/treeIcon.png',
                             fit: BoxFit.cover),
                       ),
@@ -488,7 +490,7 @@ class _Description extends State<Description> {
                         width: 7.0,
                       ),
                       Text(
-                        '${widget._item.bedroom} Bedrooms',
+                        '${widget._item.bedroom}  ${DemoLocalization.of(context).word['garden']}',
                         style: TextStyle(
                           fontSize: 18.0,
                           color: _fontColor,
@@ -514,9 +516,8 @@ class _Description extends State<Description> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            alignment: Alignment.centerLeft,
             child: Text(
-              'Description',
+              '${DemoLocalization.of(context).word['des']}' ,
               style: TextStyle(
                 fontSize: 22,
                 color: _titleColor,
@@ -543,7 +544,7 @@ class _Description extends State<Description> {
         alignment: Alignment.center,
         width: MediaQuery.of(context).size.width * 62 / 100,
         height: 45.0,
-        margin: EdgeInsets.symmetric(vertical: 10.0),
+        margin: EdgeInsets.symmetric(vertical: 10.0 , horizontal: MediaQuery.of(context).size.width * 38 / 100 /2),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25.0),
           color: _mainColor,
@@ -571,14 +572,14 @@ class _Description extends State<Description> {
       child: Container(
         alignment: Alignment.center,
         width: MediaQuery.of(context).size.width * 80 / 100,
-        margin: EdgeInsets.symmetric(vertical: 10.0),
+        margin: EdgeInsets.symmetric(vertical: 10.0 , horizontal: MediaQuery.of(context).size.width * 20 / 100 /2 ),
         height: 50.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25.0),
           color: _mainColor,
         ),
         child: Text(
-          'Buy Now',
+          ' ${DemoLocalization.of(context).word['buy']}',
           style: TextStyle(
               color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
         ),

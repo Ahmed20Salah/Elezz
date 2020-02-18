@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:elezz/data/bloc.dart';
 import 'package:elezz/model/item.dart';
 import 'package:elezz/pages/home.dart';
+import 'package:elezz/utils/app_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +30,7 @@ class _RequestPageState extends State<RequestPage> {
 
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-Color _mainColor = Color(0xffbca05d);
+  Color _mainColor = Color(0xffbca05d);
   List<String> _nows = [
     'الوسيط',
     'انترنت',
@@ -64,12 +65,12 @@ Color _mainColor = Color(0xffbca05d);
       key: _scaffoldKey,
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(
               height: 20.0,
             ),
             Container(
-              alignment: Alignment.topLeft,
               child: IconButton(
                 icon: Icon(Icons.arrow_back),
                 onPressed: () {
@@ -85,7 +86,7 @@ Color _mainColor = Color(0xffbca05d);
                 child: ListView(
                   children: <Widget>[
                     Text(
-                      'Request for Buy',
+                      DemoLocalization.of(context).word['request'],
                       style: TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
@@ -104,7 +105,7 @@ Color _mainColor = Color(0xffbca05d);
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'Name',
+                            DemoLocalization.of(context).word['name'],
                             style: _titleStle(),
                           ),
                           TextFormField(
@@ -140,7 +141,7 @@ Color _mainColor = Color(0xffbca05d);
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'Address',
+                            DemoLocalization.of(context).word['address'],
                             style: _titleStle(),
                           ),
                           TextFormField(
@@ -176,7 +177,7 @@ Color _mainColor = Color(0xffbca05d);
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'Your job',
+                            DemoLocalization.of(context).word['job'],
                             style: _titleStle(),
                           ),
                           TextFormField(
@@ -212,7 +213,7 @@ Color _mainColor = Color(0xffbca05d);
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'Name of sales person',
+                            DemoLocalization.of(context).word['sales'],
                             style: _titleStle(),
                           ),
                           TextFormField(
@@ -240,7 +241,7 @@ Color _mainColor = Color(0xffbca05d);
                     ),
                     Container(
                       child: Text(
-                        'How did you know us',
+                        DemoLocalization.of(context).word['knows'],
                         style: _titleStle(),
                       ),
                     ),
@@ -283,7 +284,7 @@ Color _mainColor = Color(0xffbca05d);
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'Choose Phase ',
+                            DemoLocalization.of(context).word['phase'],
                             style: _titleStle(),
                           ),
                           TextFormField(
@@ -319,7 +320,7 @@ Color _mainColor = Color(0xffbca05d);
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'Choose Type ',
+                            DemoLocalization.of(context).word['type'],
                             style: _titleStle(),
                           ),
                           TextFormField(
@@ -347,7 +348,7 @@ Color _mainColor = Color(0xffbca05d);
                     ),
                     Container(
                       child: Text(
-                        'Choose Your Payment system',
+                        DemoLocalization.of(context).word['payment'],
                         style: _titleStle(),
                       ),
                     ),
@@ -367,7 +368,7 @@ Color _mainColor = Color(0xffbca05d);
                                   value: 'Cash',
                                   onChanged: change,
                                 ),
-                                Text('Cash'),
+                                Text(DemoLocalization.of(context).word['cash']),
                               ],
                             ),
                           ),
@@ -381,7 +382,8 @@ Color _mainColor = Color(0xffbca05d);
                                   value: 'Installment',
                                   onChanged: change,
                                 ),
-                                Text('Installment'),
+                                Text(DemoLocalization.of(context)
+                                    .word['installment']),
                               ],
                             ),
                           ),
@@ -393,7 +395,7 @@ Color _mainColor = Color(0xffbca05d);
                     ),
                     Container(
                       child: Text(
-                        'period of installment',
+                        DemoLocalization.of(context).word['period'],
                         style: _titleStle(),
                       ),
                     ),
@@ -409,7 +411,8 @@ Color _mainColor = Color(0xffbca05d);
                           Container(
                             child: Column(
                               children: <Widget>[
-                                Text('1 year'),
+                                Text(
+                                    DemoLocalization.of(context).word['1year']),
                                 Radio(
                                   activeColor: _mainColor,
                                   groupValue: _installmentyear,
@@ -422,7 +425,8 @@ Color _mainColor = Color(0xffbca05d);
                           Container(
                             child: Column(
                               children: <Widget>[
-                                Text('2 year'),
+                                Text(
+                                    DemoLocalization.of(context).word['2year']),
                                 Radio(
                                   activeColor: _mainColor,
                                   groupValue: _installmentyear,
@@ -435,7 +439,8 @@ Color _mainColor = Color(0xffbca05d);
                           Container(
                             child: Column(
                               children: <Widget>[
-                                Text('3 year'),
+                                Text(
+                                    DemoLocalization.of(context).word['3year']),
                                 Radio(
                                   activeColor: _mainColor,
                                   groupValue: _installmentyear,
@@ -453,7 +458,7 @@ Color _mainColor = Color(0xffbca05d);
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'More Details ',
+                            DemoLocalization.of(context).word['details'],
                             style: _titleStle(),
                           ),
                           SizedBox(
@@ -516,7 +521,8 @@ Color _mainColor = Color(0xffbca05d);
                                   content: Container(
                                     alignment: Alignment.center,
                                     height: 20.0,
-                                    child: Text('your Request Sent'),
+                                    child: Text(DemoLocalization.of(context)
+                                        .word['request']),
                                   ),
                                 ),
                               );
@@ -542,7 +548,7 @@ Color _mainColor = Color(0xffbca05d);
                         height: 60.0,
                         margin: EdgeInsets.symmetric(horizontal: 20.0),
                         child: Text(
-                          'Send',
+                          DemoLocalization.of(context).word['send'],
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,

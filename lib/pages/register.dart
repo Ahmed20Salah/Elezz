@@ -4,13 +4,21 @@ import 'package:elezz/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _RegisterState();
+  }
+}
+
+class _RegisterState extends State<Register> {
   TextEditingController _firstname = TextEditingController();
   TextEditingController _familyname = TextEditingController();
   TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
   TextEditingController _cpassword = TextEditingController();
   TextEditingController _mobile = TextEditingController();
+  bool _loading = false;
 
   GlobalKey<FormState> _keyForm = GlobalKey<FormState>();
   Color _mainColor = Color(0xffbca05d);
@@ -20,12 +28,12 @@ class Register extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(
               height: 20.0,
             ),
             Container(
-              alignment: Alignment.topLeft,
               child: IconButton(
                 icon: Icon(Icons.arrow_back),
                 onPressed: () {
@@ -325,16 +333,25 @@ class Register extends StatelessWidget {
                       onTap: () async {
                         _keyForm.currentState.save();
                         if (_keyForm.currentState.validate()) {
+                          setState(() {
+                            _loading = true;
+                          });
                           var re = await bloc.register(
                               '${_firstname.text} ${_familyname.text}',
                               _email.text,
                               _password.text);
                           if (re['status']) {
+                            setState(() {
+                              _loading = false;
+                            });
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => Home()));
                           } else {
+                            setState(() {
+                              _loading = false;
+                            });
                             showDialog(
                               context: context,
                               child: AlertDialog(
@@ -346,22 +363,26 @@ class Register extends StatelessWidget {
                           return;
                         }
                       },
-                      child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30.0),
-                            color: _mainColor),
-                        height: 60.0,
-                        margin: EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Text(
-                          DemoLocalization.of(context).word['register'],
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
+                      child: _loading
+                          ? CircularProgressIndicator(
+                              backgroundColor: _mainColor,
+                            )
+                          : Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  color: _mainColor),
+                              height: 60.0,
+                              margin: EdgeInsets.symmetric(horizontal: 20.0),
+                              child: Text(
+                                DemoLocalization.of(context).word['register'],
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
                     ),
                     SizedBox(
                       height: 20.0,

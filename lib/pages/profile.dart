@@ -25,7 +25,7 @@ class Profile extends StatelessWidget {
                     Text(
                       'you have to Sign up !',
                       style: TextStyle(
-                          color:Color(0xffa7a6b2),
+                          color: Color(0xffa7a6b2),
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold),
                     ),
@@ -195,13 +195,13 @@ class Profile extends StatelessWidget {
                                   // border: Border.all(),
                                   // borderRadius: BorderRadius.circular(5)),
                                   child: Icon(
-                                    Icons.rate_review,
+                                    Icons.touch_app,
                                     size: 30.0,
                                     color: _mainColor,
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 8,
+                                  width: 4,
                                 ),
                                 Text(
                                   DemoLocalization.of(context).word['rate_app'],
@@ -226,7 +226,7 @@ class Profile extends StatelessWidget {
                             color: _mainColor,
                           ),
                           SizedBox(
-                            width: 10.0,
+                            width: 4.0,
                           ),
                           Container(
                             height: 20.0,
@@ -271,8 +271,10 @@ class Profile extends StatelessWidget {
                             onChanged: (val) {
                               if (val == 'عربي') {
                                 model.changeLanguage(Locale('ar'));
+                                bloc.changelang(Locale('ar'));
                               } else {
                                 model.changeLanguage(Locale('en'));
+                                bloc.changelang(Locale('en'));
                               }
                             },
                             style: TextStyle(fontSize: 20.0),

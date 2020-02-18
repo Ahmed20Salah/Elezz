@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:elezz/data/bloc.dart';
 import 'package:elezz/pages/home.dart';
-import 'package:elezz/pages/switch.dart';
+import 'package:elezz/pages/language.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -36,15 +36,17 @@ class _SplashState extends State<Splash> {
         ),
       );
     });
-    ;
+
     bloc.getProjects();
+
     bloc.userCheck().then((val) async {
       if (val) {
+        await bloc.checklang();
         await bloc.getFavorite().then((cal) {
           fun(Home());
         });
       } else {
-        fun(SwitchPage());
+        fun(Language());
       }
     });
   }

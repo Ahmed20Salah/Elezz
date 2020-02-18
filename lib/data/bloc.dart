@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:elezz/model/app_model.dart';
 import 'package:elezz/model/favorite.dart';
 import 'package:elezz/pages/favorite.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,7 +25,9 @@ class _Bloc {
   String url = 'http://elezzgroup.unlimited-soft.com';
   String consty = 'storage/app/public/attachments';
   User user;
-  List<Item> projects = [];
+  var projects = [];
+  List<Item> _projects_ar = [];
+  List<Item> _projects_en = [];
   List<FavoriteModel> favorite = [];
   String message = 'wrong Email or password!';
 
@@ -120,6 +123,35 @@ class _Bloc {
     }
   }
 
+  logout() async {
+    user = null;
+    SharedPreferences pre = await SharedPreferences.getInstance();
+    pre.setString('token', null);
+    pre.setString('email', null);
+    pre.setString('name', null);
+    pre.setString('id', null);
+  }
+
+  getProjects() async {
+    var re;
+    var data;
+    try {
+      re = await http.get('$url/api/projects_names');
+      if (jsonDecode(re.body)['status']) {
+        print(jsonDecode(re.body)['data']);
+        data = jsonDecode(re.body)['data']['english'];
+
+        for (int i = 0; i < data.length; i++) {
+          _projects_en.add(Item.fromMap(data[i]));
+          _projects_ar
+              .add(Item.fromMap(jsonDecode(re.body)['data']['arabic'][i]));
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   sendReauest(
       {@required date,
       @required name,
@@ -144,23 +176,6 @@ class _Bloc {
     }
   }
 
-  getProjects() async {
-    var re;
-    var data;
-    try {
-      re = await http.get('$url/api/projects_names');
-      if (jsonDecode(re.body)['status']) {
-        print(jsonDecode(re.body)['data']);
-        data = jsonDecode(re.body)['data'];
-        for (var item in data) {
-          projects.add(Item.fromMap(item));
-        }
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
   getFavorite() async {
     var re;
     var data;
@@ -170,7 +185,7 @@ class _Bloc {
       if (data['status']) {
         if (data['data'].length > 0) {
           print(data['data'].length);
-          for (int i = 1; i <= data['data'].length - 2; i++) {
+          for (int i = 0; i < data['data'].length; i++) {
             print(data['data'][i]);
             favorite.add(FavoriteModel(
                 data['data'][i]['id'], data['data'][i]['project_id']));
@@ -204,7 +219,7 @@ class _Bloc {
 
   checkFavoirte(Item item) {
     for (var pro in favorite) {
-      if (item.id.toString() == pro.projectId) {
+      if (item.id == int.parse(pro.projectId)) {
         print('favorite');
         return true;
       }
@@ -238,13 +253,26 @@ class _Bloc {
     }
   }
 
-  logout() async {
-    user = null;
-    SharedPreferences pre = await SharedPreferences.getInstance();
-    pre.setString('token', null);
-    pre.setString('email', null);
-    pre.setString('name', null);
-    pre.setString('id', null);
+  changelang(Locale locale) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    if (locale.languageCode == 'en') {
+      projects = _projects_en;
+      preferences.setString('lang', 'en');
+    } else {
+      projects = _projects_ar;
+      preferences.setString('lang', 'ar');
+    }
+  }
+
+  checklang() async {
+    AppModel model = AppModel();
+    Locale re = await model.checkLang();
+    print(re);
+    if (re.languageCode == 'en') {
+      projects = _projects_en;
+    } else {
+      projects = _projects_ar;
+    }
   }
 
   download(file) {}

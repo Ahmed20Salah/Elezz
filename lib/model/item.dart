@@ -31,9 +31,9 @@ class Item {
     rate = map['rate'];
     size = map['sqft'];
     bedroom = map['bedrooms'];
-    bethroom = map['bethrooms'];
+    bethroom = map['bathrooms'];
     garage = map['garage'];
-    description = map['description'];
+    description = map['des'];
     kitchens = map['kitchens'];
     pdf = map['file'];
   }

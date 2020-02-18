@@ -1,10 +1,13 @@
 import 'package:elezz/model/company.dart';
+import 'package:elezz/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class CompanyDescription extends StatelessWidget {
   final Company _item;
-  CompanyDescription(this._item);
+  String des  ;
+
+  CompanyDescription(this._item , des);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,7 @@ class CompanyDescription extends StatelessWidget {
             Container(
               margin: EdgeInsets.symmetric(horizontal: 20.0),
               child: Text(
-                'About ${_item.name}',
+                '${DemoLocalization.of(context).word['about']} ${_item.name}',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
             ),
@@ -43,14 +46,14 @@ class CompanyDescription extends StatelessWidget {
             Container(
               margin: EdgeInsets.symmetric(horizontal: 20.0),
               child: Text(
-                'Description',
+                DemoLocalization.of(context).word['des'],
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               child: Text(
-                _item.description,
+             des,
                 maxLines: 4,
                 softWrap: true,
                 style: TextStyle(fontSize: 16, color: Colors.black45),

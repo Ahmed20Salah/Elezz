@@ -14,7 +14,7 @@ class CustomBottomBar extends StatelessWidget {
       currentIndex: active,
       unselectedItemColor: Colors.black26,
       type: BottomNavigationBarType.fixed,
-      selectedItemColor: Colors.brown,
+      selectedItemColor: Color(0xffbca05d),
       onTap: (val) {
         switch (val) {
           case 0:

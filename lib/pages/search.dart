@@ -142,6 +142,7 @@ class _SearchState extends State<Search> {
             Container(
               margin: EdgeInsets.symmetric(vertical: 10.0),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
                     width: MediaQuery.of(context).size.width * 60 / 100.0,
@@ -162,10 +163,11 @@ class _SearchState extends State<Search> {
                         ),
                         Container(
                           child: Text(
-                            'Villa 49 Mansoreya View',
+                            bloc.projects[0].description,
                             style: TextStyle(color: _fontColor, fontSize: 16),
                             softWrap: true,
-                            maxLines: 3,
+                            maxLines: 1,
+                            overflow: TextOverflow.fade,
                           ),
                         )
                       ],
@@ -199,7 +201,7 @@ class _SearchState extends State<Search> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            'Popular',
+            DemoLocalization.of(context).word['popular'],
             style: TextStyle(
                 color: _titleColor, fontSize: 19, fontWeight: FontWeight.bold),
           ),
@@ -262,11 +264,12 @@ class _SearchState extends State<Search> {
                                     ),
                                     Container(
                                       child: Text(
-                                        'Villa 49 Mansoreya View',
+                                       bloc.projects[index].description,
                                         style: TextStyle(
                                             color: _fontColor, fontSize: 16),
-                                        softWrap: true,
-                                        maxLines: 3,
+                                            maxLines: 1,
+                                        overflow: TextOverflow.fade,
+                                        softWrap: false,
                                       ),
                                     )
                                   ],

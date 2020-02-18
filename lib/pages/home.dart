@@ -14,27 +14,17 @@ class Home extends StatefulWidget {
 
 class _Home extends State<Home> {
   List<Company> _obj = [
-    Company(
-        name: 'ElNourhan Company',
-        description:
-            'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy',
-        image: 'assets/apart2.jpeg'),
-    Company(
-        name: 'ElNourhan Company',
-        description:
-            'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy',
-        image: 'assets/apart2.jpeg'),
-    Company(
-        name: 'ElNourhan Company',
-        description:
-            'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy',
-        image: 'assets/apart2.jpeg'),
-    Company(
-        name: 'ElNourhan Company',
-        description:
-            'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy',
-        image: 'assets/apart2.jpeg'),
+    Company(name: 'ElNourhan Company', image: 'assets/elnourhan.png'),
+    Company(name: 'ElShorka Company', image: 'assets/shorka.png'),
   ];
+
+  List<Company> _pro = [
+    Company(name: 'EL NOURHAN PROJECT', image: 'assets/elnourhan.png'),
+    Company(name: 'MANSOREYA VIEW', image: 'assets/mansoreya.png'),
+    Company(name: 'La joie', image: 'assets/lajoie.png'),
+
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +40,7 @@ class _Home extends State<Home> {
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
-                  DemoLocalization.of(context).word['about'],
+                  DemoLocalization.of(context).word['about_us'],
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 30.0,
@@ -80,9 +70,9 @@ class _Home extends State<Home> {
               Container(
                 margin: EdgeInsets.only(bottom: 20.0),
                 child: Text(
-                  'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy',
+                  DemoLocalization.of(context).word['company_des'],
                   softWrap: true,
-                  maxLines: 4,
+                  maxLines: 7,
                   style: TextStyle(fontSize: 16, color: Colors.black54),
                 ),
               ),
@@ -99,8 +89,8 @@ class _Home extends State<Home> {
                   crossAxisCount: 2,
                   childAspectRatio: 2,
                   children: <Widget>[
-                    _logo(context, _obj[0]),
-                    _logo(context, _obj[1])
+                    _logo(context, _obj[0], DemoLocalization.of(context).word['nour_des']),
+                    _logo(context, _obj[1], DemoLocalization.of(context).word['shokrak_des']),
                   ],
                 ),
               ),
@@ -120,10 +110,11 @@ class _Home extends State<Home> {
                   childAspectRatio: 2,
                   mainAxisSpacing: 10.0,
                   children: <Widget>[
-                    _logo(context, _obj[2]),
-                    _logo(context, _obj[3]),
-                    _logo(context, _obj[0]),
-                    _logo(context, _obj[1])
+                    _logo(context, _pro[1] , DemoLocalization.of(context).word['mans']),
+                    _logo(context, _pro[2] , DemoLocalization.of(context).word['lajoie_des']),
+                    _logo(context, _pro[0],  DemoLocalization.of(context).word['nour_des']),
+
+
                   ],
                 ),
               )
@@ -140,21 +131,21 @@ class _Home extends State<Home> {
         color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold);
   }
 
-  Widget _logo(context, _company) {
+  Widget _logo(context, _company, des) {
     return InkWell(
       child: Container(
         decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(_company.image), fit: BoxFit.cover),
-            border: Border.all(),
-            borderRadius: BorderRadius.circular(5),
-            color: Colors.blueAccent),
+          image: DecorationImage(
+              image: AssetImage(_company.image), fit: BoxFit.cover),
+          border: Border.all(),
+          borderRadius: BorderRadius.circular(5),
+        ),
       ),
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => CompanyDescription(_company),
+            builder: (context) => CompanyDescription(_company , des),
           ),
         );
       },
